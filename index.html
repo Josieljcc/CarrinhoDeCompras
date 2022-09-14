@@ -6,10 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="./helpers/fetchItem.js" defer></script>
     <script src="./helpers/fetchProducts.js" defer></script>
     <script src="./helpers/saveCartItems.js" defer></script>
@@ -19,18 +26,34 @@
   <body>
     <header class="header">
       <div class="container-title">
-        <span class="title"><strong>trybe</strong>shopping</span>
+        <img class="logo" src="assets/logo.svg" alt="" />
       </div>
-      <i class="material-icons" style="font-size:45px;color:white">shopping_cart</i>
-      <div class="container-cartTitle">
-        <span class="cart__title">Meu carrinho</span>
+      <div class="container-cart">
+        <i class="material-symbols-outlined"> shopping_cart </i>
+        <p class="cart-title">Meu carrinho</p>
       </div>
     </header>
     <section class="container">
-      <section class="items"></section>
+      <div class="items-conainer">
+        <div class="search">
+          <label for="inp" class="inp">
+            <input type="text" id="inp" placeholder="&nbsp;">
+            <span class="label">Pesquise um Produto</span>
+            <span class="focus-bg"></span>
+          </label>
+          <button class="button search-button">Buscar</button>
+        </div>
+        <section class="items">
+        <div class="loading">Carregando...</div>
+        </section>
+      </div>
+      </div>
       <section class="cart">
         <ol class="cart__items"></ol>
-        <button class="empty-cart">Esvaziar carrinho</button>
+        <div class="total-container">
+          <p>SubTotal</p>
+        </div>
+        <button class="empty-cart button">Esvaziar carrinho</button>
       </section>
     </section>
   </body>
