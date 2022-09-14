@@ -306,3 +306,9 @@ header {
   background-color: var(--purple);
   padding-inline: 1rem;
 }
+
+.empty-cart {
+  margin-top: 1rem;
+  background-color: var(--purple);
+  height: 2rem;
+}
