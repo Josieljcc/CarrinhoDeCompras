@@ -4,6 +4,7 @@ const emptyCart = document.querySelector('.empty-cart');
 const totalContainer = document.querySelector('.total-container');
 const searchButton = document.querySelector('.search-button');
 const inputSearch = document.querySelector('#inp');
+const numberCartItem = document.querySelector('.number-cart-item');
 
 const clearStorage = () => localStorage.removeItem('cartItems');
 
@@ -11,6 +12,19 @@ const calculateTotal = (cart) => cart.reduce((acc, curr) => acc + curr.price, 0)
   'pt-br',
   { style: 'currency', currency: 'BRL' },
 );
+
+const updateNumberCartItems = () => {
+  const cart = JSON.parse(getSavedCartItems('cartItems'));
+  if (!cart) {
+    numberCartItem.classList.toggle('hiden');
+    return;
+  }
+  numberCartItem.classList.remove('hiden');
+  numberCartItem.classList.add('show');
+  console.log(cart.length);
+  numberCartItem.innerText = cart.length;
+  console.log('oi');
+};
 
 const refreshTotal = () => {
   if (Object.prototype.hasOwnProperty.call(localStorage, 'cartItems')) {
@@ -35,6 +49,7 @@ const removeCartItem = (id) => {
   if (itemsBeforRemove) {
     const removed = JSON.parse(itemsBeforRemove).filter((product) => product.id !== id);
     localStorage.setItem('cartItems', JSON.stringify(removed));
+    updateNumberCartItems();
     refreshTotal();
   }
 };
@@ -152,6 +167,7 @@ const addCartItemButtonHandle = async (event) => {
   }
   saveCartItems(carItems, atualCart);
   refreshTotal();
+  updateNumberCartItems();
 };
 
 const getData = async (item) => {
@@ -170,6 +186,7 @@ window.onload = async () => {
   refreshCartItems();
   const addButtons = document.querySelectorAll('.item__add');
   addButtons.forEach((button) => button.addEventListener('click', addCartItemButtonHandle));
+  updateNumberCartItems();
 };
 
 emptyCart.addEventListener('click', () => {
@@ -177,11 +194,39 @@ emptyCart.addEventListener('click', () => {
   clearStorage();
   const value = document.querySelector('.total-price'); 
   value.innerHTML = '';
+  updateNumberCartItems();
 });
+
+const backTop = document.querySelector('.back-to-top');
+function showButtonBackToTop() {
+  if (window.scrollY > 400) {
+    backTop.classList.add('show');
+  } else {
+    backTop.classList.remove('show');
+  }
+}
 
 searchButton.addEventListener('click', async () => {
   items.innerText = '';
   await getData(inputSearch.value);
   const addButtons = document.querySelectorAll('.item__add');
   addButtons.forEach((button) => button.addEventListener('click', addCartItemButtonHandle));
+});
+
+const cartIcon = document.querySelector('.cart-icon');
+const containerCart = document.querySelector('.container-cart');
+const handleCloseCart = () => {
+  containerCart.classList.toggle('close-header');
+  containerCart.lastElementChild.classList.toggle('hiden');
+  containerCart.firstElementChild.classList.toggle('close-cart-number');
+  cartItems.parentElement.classList.toggle('close-cart-items');
+  items.classList.toggle('close-items-conainer');
+  items.parentElement.classList.toggle('close-items-conainer');
+  containerCart.parentElement.firstElementChild.classList.toggle('close-header-title');
+};
+
+cartIcon.addEventListener('click', handleCloseCart);
+
+window.addEventListener('scroll', function () {
+  showButtonBackToTop();
 });
